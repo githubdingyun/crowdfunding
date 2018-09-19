@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dingyun.dao.ProjectsDAO">
+  <resultMap id="BaseResultMap" type="com.dingyun.model.Projects">
+    <id column="ps_id" jdbcType="INTEGER" property="psId" />
+    <result column="ps_us_id" jdbcType="INTEGER" property="psUsId" />
+    <result column="ps_cust_name" jdbcType="VARCHAR" property="psCustName" />
+    <result column="ps_cust_phone" jdbcType="VARCHAR" property="psCustPhone" />
+    <result column="ps_cust_address" jdbcType="VARCHAR" property="psCustAddress" />
+    <result column="ps_pst_id" jdbcType="INTEGER" property="psPstId" />
+    <result column="ps_file" jdbcType="VARCHAR" property="psFile" />
+    <result column="ps_name" jdbcType="VARCHAR" property="psName" />
+    <result column="ps_goal" jdbcType="VARCHAR" property="psGoal" />
+    <result column="ps_address" jdbcType="VARCHAR" property="psAddress" />
+    <result column="ps_money" jdbcType="DOUBLE" property="psMoney" />
+    <result column="ps_days" jdbcType="INTEGER" property="psDays" />
+    <result column="ps_video" jdbcType="VARCHAR" property="psVideo" />
+    <result column="ps_story" jdbcType="VARCHAR" property="psStory" />
+    <result column="ps_support" jdbcType="VARCHAR" property="psSupport" />
+    <result column="ps_repay" jdbcType="VARCHAR" property="psRepay" />
+    <result column="ps_aboutme" jdbcType="VARCHAR" property="psAboutme" />
+    <result column="ps_type" jdbcType="INTEGER" property="psType" />
+    <result column="ps_starttime" jdbcType="DATE" property="psStarttime" />
+    <result column="ps_endtime" jdbcType="DATE" property="psEndtime" />
+    <result column="ps_getmoney" jdbcType="DOUBLE" property="psGetmoney" />
+    <result column="ps_getpeople" jdbcType="INTEGER" property="psGetpeople" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ps_id, ps_us_id, ps_cust_name, ps_cust_phone, ps_cust_address, ps_pst_id, ps_file, 
+    ps_name, ps_goal, ps_address, ps_money, ps_days, ps_video, ps_story, ps_support, 
+    ps_repay, ps_aboutme, ps_type, ps_starttime, ps_endtime, ps_getmoney, ps_getpeople
+  </sql>
+  <select id="selectByExample" parameterType="com.dingyun.model.ProjectsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from projects
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from projects
+    where ps_id = #{psId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from projects
+    where ps_id = #{psId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dingyun.model.ProjectsExample">
+    delete from projects
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dingyun.model.Projects">
+    insert into projects (ps_id, ps_us_id, ps_cust_name, 
+      ps_cust_phone, ps_cust_address, ps_pst_id, 
+      ps_file, ps_name, ps_goal, 
+      ps_address, ps_money, ps_days, 
+      ps_video, ps_story, ps_support, 
+      ps_repay, ps_aboutme, ps_type, 
+      ps_starttime, ps_endtime, ps_getmoney, 
+      ps_getpeople)
+    values (#{psId,jdbcType=INTEGER}, #{psUsId,jdbcType=INTEGER}, #{psCustName,jdbcType=VARCHAR}, 
+      #{psCustPhone,jdbcType=VARCHAR}, #{psCustAddress,jdbcType=VARCHAR}, #{psPstId,jdbcType=INTEGER}, 
+      #{psFile,jdbcType=VARCHAR}, #{psName,jdbcType=VARCHAR}, #{psGoal,jdbcType=VARCHAR}, 
+      #{psAddress,jdbcType=VARCHAR}, #{psMoney,jdbcType=DOUBLE}, #{psDays,jdbcType=INTEGER}, 
+      #{psVideo,jdbcType=VARCHAR}, #{psStory,jdbcType=VARCHAR}, #{psSupport,jdbcType=VARCHAR}, 
+      #{psRepay,jdbcType=VARCHAR}, #{psAboutme,jdbcType=VARCHAR}, #{psType,jdbcType=INTEGER}, 
+      #{psStarttime,jdbcType=DATE}, #{psEndtime,jdbcType=DATE}, #{psGetmoney,jdbcType=DOUBLE}, 
+      #{psGetpeople,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dingyun.model.Projects">
+    insert into projects
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="psId != null">
+        ps_id,
+      </if>
+      <if test="psUsId != null">
+        ps_us_id,
+      </if>
+      <if test="psCustName != null">
+        ps_cust_name,
+      </if>
+      <if test="psCustPhone != null">
+        ps_cust_phone,
+      </if>
+      <if test="psCustAddress != null">
+        ps_cust_address,
+      </if>
+      <if test="psPstId != null">
+        ps_pst_id,
+      </if>
+      <if test="psFile != null">
+        ps_file,
+      </if>
+      <if test="psName != null">
+        ps_name,
+      </if>
+      <if test="psGoal != null">
+        ps_goal,
+      </if>
+      <if test="psAddress != null">
+        ps_address,
+      </if>
+      <if test="psMoney != null">
+        ps_money,
+      </if>
+      <if test="psDays != null">
+        ps_days,
+      </if>
+      <if test="psVideo != null">
+        ps_video,
+      </if>
+      <if test="psStory != null">
+        ps_story,
+      </if>
+      <if test="psSupport != null">
+        ps_support,
+      </if>
+      <if test="psRepay != null">
+        ps_repay,
+      </if>
+      <if test="psAboutme != null">
+        ps_aboutme,
+      </if>
+      <if test="psType != null">
+        ps_type,
+      </if>
+      <if test="psStarttime != null">
+        ps_starttime,
+      </if>
+      <if test="psEndtime != null">
+        ps_endtime,
+      </if>
+      <if test="psGetmoney != null">
+        ps_getmoney,
+      </if>
+      <if test="psGetpeople != null">
+        ps_getpeople,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="psId != null">
+        #{psId,jdbcType=INTEGER},
+      </if>
+      <if test="psUsId != null">
+        #{psUsId,jdbcType=INTEGER},
+      </if>
+      <if test="psCustName != null">
+        #{psCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="psCustPhone != null">
+        #{psCustPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="psCustAddress != null">
+        #{psCustAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="psPstId != null">
+        #{psPstId,jdbcType=INTEGER},
+      </if>
+      <if test="psFile != null">
+        #{psFile,jdbcType=VARCHAR},
+      </if>
+      <if test="psName != null">
+        #{psName,jdbcType=VARCHAR},
+      </if>
+      <if test="psGoal != null">
+        #{psGoal,jdbcType=VARCHAR},
+      </if>
+      <if test="psAddress != null">
+        #{psAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="psMoney != null">
+        #{psMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="psDays != null">
+        #{psDays,jdbcType=INTEGER},
+      </if>
+      <if test="psVideo != null">
+        #{psVideo,jdbcType=VARCHAR},
+      </if>
+      <if test="psStory != null">
+        #{psStory,jdbcType=VARCHAR},
+      </if>
+      <if test="psSupport != null">
+        #{psSupport,jdbcType=VARCHAR},
+      </if>
+      <if test="psRepay != null">
+        #{psRepay,jdbcType=VARCHAR},
+      </if>
+      <if test="psAboutme != null">
+        #{psAboutme,jdbcType=VARCHAR},
+      </if>
+      <if test="psType != null">
+        #{psType,jdbcType=INTEGER},
+      </if>
+      <if test="psStarttime != null">
+        #{psStarttime,jdbcType=DATE},
+      </if>
+      <if test="psEndtime != null">
+        #{psEndtime,jdbcType=DATE},
+      </if>
+      <if test="psGetmoney != null">
+        #{psGetmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="psGetpeople != null">
+        #{psGetpeople,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dingyun.model.ProjectsExample" resultType="java.lang.Long">
+    select count(*) from projects
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update projects
+    <set>
+      <if test="record.psId != null">
+        ps_id = #{record.psId,jdbcType=INTEGER},
+      </if>
+      <if test="record.psUsId != null">
+        ps_us_id = #{record.psUsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.psCustName != null">
+        ps_cust_name = #{record.psCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psCustPhone != null">
+        ps_cust_phone = #{record.psCustPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psCustAddress != null">
+        ps_cust_address = #{record.psCustAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psPstId != null">
+        ps_pst_id = #{record.psPstId,jdbcType=INTEGER},
+      </if>
+      <if test="record.psFile != null">
+        ps_file = #{record.psFile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psName != null">
+        ps_name = #{record.psName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psGoal != null">
+        ps_goal = #{record.psGoal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psAddress != null">
+        ps_address = #{record.psAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psMoney != null">
+        ps_money = #{record.psMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.psDays != null">
+        ps_days = #{record.psDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.psVideo != null">
+        ps_video = #{record.psVideo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psStory != null">
+        ps_story = #{record.psStory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psSupport != null">
+        ps_support = #{record.psSupport,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psRepay != null">
+        ps_repay = #{record.psRepay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psAboutme != null">
+        ps_aboutme = #{record.psAboutme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psType != null">
+        ps_type = #{record.psType,jdbcType=INTEGER},
+      </if>
+      <if test="record.psStarttime != null">
+        ps_starttime = #{record.psStarttime,jdbcType=DATE},
+      </if>
+      <if test="record.psEndtime != null">
+        ps_endtime = #{record.psEndtime,jdbcType=DATE},
+      </if>
+      <if test="record.psGetmoney != null">
+        ps_getmoney = #{record.psGetmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.psGetpeople != null">
+        ps_getpeople = #{record.psGetpeople,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update projects
+    set ps_id = #{record.psId,jdbcType=INTEGER},
+      ps_us_id = #{record.psUsId,jdbcType=INTEGER},
+      ps_cust_name = #{record.psCustName,jdbcType=VARCHAR},
+      ps_cust_phone = #{record.psCustPhone,jdbcType=VARCHAR},
+      ps_cust_address = #{record.psCustAddress,jdbcType=VARCHAR},
+      ps_pst_id = #{record.psPstId,jdbcType=INTEGER},
+      ps_file = #{record.psFile,jdbcType=VARCHAR},
+      ps_name = #{record.psName,jdbcType=VARCHAR},
+      ps_goal = #{record.psGoal,jdbcType=VARCHAR},
+      ps_address = #{record.psAddress,jdbcType=VARCHAR},
+      ps_money = #{record.psMoney,jdbcType=DOUBLE},
+      ps_days = #{record.psDays,jdbcType=INTEGER},
+      ps_video = #{record.psVideo,jdbcType=VARCHAR},
+      ps_story = #{record.psStory,jdbcType=VARCHAR},
+      ps_support = #{record.psSupport,jdbcType=VARCHAR},
+      ps_repay = #{record.psRepay,jdbcType=VARCHAR},
+      ps_aboutme = #{record.psAboutme,jdbcType=VARCHAR},
+      ps_type = #{record.psType,jdbcType=INTEGER},
+      ps_starttime = #{record.psStarttime,jdbcType=DATE},
+      ps_endtime = #{record.psEndtime,jdbcType=DATE},
+      ps_getmoney = #{record.psGetmoney,jdbcType=DOUBLE},
+      ps_getpeople = #{record.psGetpeople,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dingyun.model.Projects">
+    update projects
+    <set>
+      <if test="psUsId != null">
+        ps_us_id = #{psUsId,jdbcType=INTEGER},
+      </if>
+      <if test="psCustName != null">
+        ps_cust_name = #{psCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="psCustPhone != null">
+        ps_cust_phone = #{psCustPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="psCustAddress != null">
+        ps_cust_address = #{psCustAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="psPstId != null">
+        ps_pst_id = #{psPstId,jdbcType=INTEGER},
+      </if>
+      <if test="psFile != null">
+        ps_file = #{psFile,jdbcType=VARCHAR},
+      </if>
+      <if test="psName != null">
+        ps_name = #{psName,jdbcType=VARCHAR},
+      </if>
+      <if test="psGoal != null">
+        ps_goal = #{psGoal,jdbcType=VARCHAR},
+      </if>
+      <if test="psAddress != null">
+        ps_address = #{psAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="psMoney != null">
+        ps_money = #{psMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="psDays != null">
+        ps_days = #{psDays,jdbcType=INTEGER},
+      </if>
+      <if test="psVideo != null">
+        ps_video = #{psVideo,jdbcType=VARCHAR},
+      </if>
+      <if test="psStory != null">
+        ps_story = #{psStory,jdbcType=VARCHAR},
+      </if>
+      <if test="psSupport != null">
+        ps_support = #{psSupport,jdbcType=VARCHAR},
+      </if>
+      <if test="psRepay != null">
+        ps_repay = #{psRepay,jdbcType=VARCHAR},
+      </if>
+      <if test="psAboutme != null">
+        ps_aboutme = #{psAboutme,jdbcType=VARCHAR},
+      </if>
+      <if test="psType != null">
+        ps_type = #{psType,jdbcType=INTEGER},
+      </if>
+      <if test="psStarttime != null">
+        ps_starttime = #{psStarttime,jdbcType=DATE},
+      </if>
+      <if test="psEndtime != null">
+        ps_endtime = #{psEndtime,jdbcType=DATE},
+      </if>
+      <if test="psGetmoney != null">
+        ps_getmoney = #{psGetmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="psGetpeople != null">
+        ps_getpeople = #{psGetpeople,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ps_id = #{psId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dingyun.model.Projects">
+    update projects
+    set ps_us_id = #{psUsId,jdbcType=INTEGER},
+      ps_cust_name = #{psCustName,jdbcType=VARCHAR},
+      ps_cust_phone = #{psCustPhone,jdbcType=VARCHAR},
+      ps_cust_address = #{psCustAddress,jdbcType=VARCHAR},
+      ps_pst_id = #{psPstId,jdbcType=INTEGER},
+      ps_file = #{psFile,jdbcType=VARCHAR},
+      ps_name = #{psName,jdbcType=VARCHAR},
+      ps_goal = #{psGoal,jdbcType=VARCHAR},
+      ps_address = #{psAddress,jdbcType=VARCHAR},
+      ps_money = #{psMoney,jdbcType=DOUBLE},
+      ps_days = #{psDays,jdbcType=INTEGER},
+      ps_video = #{psVideo,jdbcType=VARCHAR},
+      ps_story = #{psStory,jdbcType=VARCHAR},
+      ps_support = #{psSupport,jdbcType=VARCHAR},
+      ps_repay = #{psRepay,jdbcType=VARCHAR},
+      ps_aboutme = #{psAboutme,jdbcType=VARCHAR},
+      ps_type = #{psType,jdbcType=INTEGER},
+      ps_starttime = #{psStarttime,jdbcType=DATE},
+      ps_endtime = #{psEndtime,jdbcType=DATE},
+      ps_getmoney = #{psGetmoney,jdbcType=DOUBLE},
+      ps_getpeople = #{psGetpeople,jdbcType=INTEGER}
+    where ps_id = #{psId,jdbcType=INTEGER}
+  </update>
+</mapper>

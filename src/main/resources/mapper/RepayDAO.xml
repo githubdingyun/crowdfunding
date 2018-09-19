@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dingyun.dao.RepayDAO">
+  <resultMap id="BaseResultMap" type="com.dingyun.model.Repay">
+    <id column="ry_id" jdbcType="INTEGER" property="ryId" />
+    <result column="ry_us_id" jdbcType="INTEGER" property="ryUsId" />
+    <result column="ry_type" jdbcType="INTEGER" property="ryType" />
+    <result column="ry_paymoney" jdbcType="DOUBLE" property="ryPaymoney" />
+    <result column="ry_rule" jdbcType="VARCHAR" property="ryRule" />
+    <result column="ry_content" jdbcType="VARCHAR" property="ryContent" />
+    <result column="ry_number" jdbcType="INTEGER" property="ryNumber" />
+    <result column="ry_time" jdbcType="TIMESTAMP" property="ryTime" />
+    <result column="ry_ps_id" jdbcType="INTEGER" property="ryPsId" />
+    <result column="ry_code" jdbcType="VARCHAR" property="ryCode" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ry_id, ry_us_id, ry_type, ry_paymoney, ry_rule, ry_content, ry_number, ry_time, ry_ps_id, 
+    ry_code
+  </sql>
+  <select id="selectByExample" parameterType="com.dingyun.model.RepayExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from repay
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from repay
+    where ry_id = #{ryId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from repay
+    where ry_id = #{ryId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dingyun.model.RepayExample">
+    delete from repay
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dingyun.model.Repay">
+    insert into repay (ry_id, ry_us_id, ry_type, 
+      ry_paymoney, ry_rule, ry_content, 
+      ry_number, ry_time, ry_ps_id, 
+      ry_code)
+    values (#{ryId,jdbcType=INTEGER}, #{ryUsId,jdbcType=INTEGER}, #{ryType,jdbcType=INTEGER}, 
+      #{ryPaymoney,jdbcType=DOUBLE}, #{ryRule,jdbcType=VARCHAR}, #{ryContent,jdbcType=VARCHAR}, 
+      #{ryNumber,jdbcType=INTEGER}, #{ryTime,jdbcType=TIMESTAMP}, #{ryPsId,jdbcType=INTEGER}, 
+      #{ryCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dingyun.model.Repay">
+    insert into repay
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ryId != null">
+        ry_id,
+      </if>
+      <if test="ryUsId != null">
+        ry_us_id,
+      </if>
+      <if test="ryType != null">
+        ry_type,
+      </if>
+      <if test="ryPaymoney != null">
+        ry_paymoney,
+      </if>
+      <if test="ryRule != null">
+        ry_rule,
+      </if>
+      <if test="ryContent != null">
+        ry_content,
+      </if>
+      <if test="ryNumber != null">
+        ry_number,
+      </if>
+      <if test="ryTime != null">
+        ry_time,
+      </if>
+      <if test="ryPsId != null">
+        ry_ps_id,
+      </if>
+      <if test="ryCode != null">
+        ry_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ryId != null">
+        #{ryId,jdbcType=INTEGER},
+      </if>
+      <if test="ryUsId != null">
+        #{ryUsId,jdbcType=INTEGER},
+      </if>
+      <if test="ryType != null">
+        #{ryType,jdbcType=INTEGER},
+      </if>
+      <if test="ryPaymoney != null">
+        #{ryPaymoney,jdbcType=DOUBLE},
+      </if>
+      <if test="ryRule != null">
+        #{ryRule,jdbcType=VARCHAR},
+      </if>
+      <if test="ryContent != null">
+        #{ryContent,jdbcType=VARCHAR},
+      </if>
+      <if test="ryNumber != null">
+        #{ryNumber,jdbcType=INTEGER},
+      </if>
+      <if test="ryTime != null">
+        #{ryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ryPsId != null">
+        #{ryPsId,jdbcType=INTEGER},
+      </if>
+      <if test="ryCode != null">
+        #{ryCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dingyun.model.RepayExample" resultType="java.lang.Long">
+    select count(*) from repay
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update repay
+    <set>
+      <if test="record.ryId != null">
+        ry_id = #{record.ryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ryUsId != null">
+        ry_us_id = #{record.ryUsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ryType != null">
+        ry_type = #{record.ryType,jdbcType=INTEGER},
+      </if>
+      <if test="record.ryPaymoney != null">
+        ry_paymoney = #{record.ryPaymoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.ryRule != null">
+        ry_rule = #{record.ryRule,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ryContent != null">
+        ry_content = #{record.ryContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ryNumber != null">
+        ry_number = #{record.ryNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.ryTime != null">
+        ry_time = #{record.ryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ryPsId != null">
+        ry_ps_id = #{record.ryPsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ryCode != null">
+        ry_code = #{record.ryCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update repay
+    set ry_id = #{record.ryId,jdbcType=INTEGER},
+      ry_us_id = #{record.ryUsId,jdbcType=INTEGER},
+      ry_type = #{record.ryType,jdbcType=INTEGER},
+      ry_paymoney = #{record.ryPaymoney,jdbcType=DOUBLE},
+      ry_rule = #{record.ryRule,jdbcType=VARCHAR},
+      ry_content = #{record.ryContent,jdbcType=VARCHAR},
+      ry_number = #{record.ryNumber,jdbcType=INTEGER},
+      ry_time = #{record.ryTime,jdbcType=TIMESTAMP},
+      ry_ps_id = #{record.ryPsId,jdbcType=INTEGER},
+      ry_code = #{record.ryCode,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dingyun.model.Repay">
+    update repay
+    <set>
+      <if test="ryUsId != null">
+        ry_us_id = #{ryUsId,jdbcType=INTEGER},
+      </if>
+      <if test="ryType != null">
+        ry_type = #{ryType,jdbcType=INTEGER},
+      </if>
+      <if test="ryPaymoney != null">
+        ry_paymoney = #{ryPaymoney,jdbcType=DOUBLE},
+      </if>
+      <if test="ryRule != null">
+        ry_rule = #{ryRule,jdbcType=VARCHAR},
+      </if>
+      <if test="ryContent != null">
+        ry_content = #{ryContent,jdbcType=VARCHAR},
+      </if>
+      <if test="ryNumber != null">
+        ry_number = #{ryNumber,jdbcType=INTEGER},
+      </if>
+      <if test="ryTime != null">
+        ry_time = #{ryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ryPsId != null">
+        ry_ps_id = #{ryPsId,jdbcType=INTEGER},
+      </if>
+      <if test="ryCode != null">
+        ry_code = #{ryCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ry_id = #{ryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dingyun.model.Repay">
+    update repay
+    set ry_us_id = #{ryUsId,jdbcType=INTEGER},
+      ry_type = #{ryType,jdbcType=INTEGER},
+      ry_paymoney = #{ryPaymoney,jdbcType=DOUBLE},
+      ry_rule = #{ryRule,jdbcType=VARCHAR},
+      ry_content = #{ryContent,jdbcType=VARCHAR},
+      ry_number = #{ryNumber,jdbcType=INTEGER},
+      ry_time = #{ryTime,jdbcType=TIMESTAMP},
+      ry_ps_id = #{ryPsId,jdbcType=INTEGER},
+      ry_code = #{ryCode,jdbcType=VARCHAR}
+    where ry_id = #{ryId,jdbcType=INTEGER}
+  </update>
+</mapper>

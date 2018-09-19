@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dingyun.dao.ProjectstypeDAO">
+  <resultMap id="BaseResultMap" type="com.dingyun.model.Projectstype">
+    <id column="pst_id" jdbcType="INTEGER" property="pstId" />
+    <result column="pst_name" jdbcType="VARCHAR" property="pstName" />
+    <result column="pst_desc" jdbcType="VARCHAR" property="pstDesc" />
+    <result column="pst_stardate" jdbcType="TIMESTAMP" property="pstStardate" />
+    <result column="pst_type" jdbcType="INTEGER" property="pstType" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    pst_id, pst_name, pst_desc, pst_stardate, pst_type
+  </sql>
+  <select id="selectByExample" parameterType="com.dingyun.model.ProjectstypeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from projectstype
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from projectstype
+    where pst_id = #{pstId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from projectstype
+    where pst_id = #{pstId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dingyun.model.ProjectstypeExample">
+    delete from projectstype
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dingyun.model.Projectstype">
+    insert into projectstype (pst_id, pst_name, pst_desc, 
+      pst_stardate, pst_type)
+    values (#{pstId,jdbcType=INTEGER}, #{pstName,jdbcType=VARCHAR}, #{pstDesc,jdbcType=VARCHAR}, 
+      #{pstStardate,jdbcType=TIMESTAMP}, #{pstType,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dingyun.model.Projectstype">
+    insert into projectstype
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pstId != null">
+        pst_id,
+      </if>
+      <if test="pstName != null">
+        pst_name,
+      </if>
+      <if test="pstDesc != null">
+        pst_desc,
+      </if>
+      <if test="pstStardate != null">
+        pst_stardate,
+      </if>
+      <if test="pstType != null">
+        pst_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pstId != null">
+        #{pstId,jdbcType=INTEGER},
+      </if>
+      <if test="pstName != null">
+        #{pstName,jdbcType=VARCHAR},
+      </if>
+      <if test="pstDesc != null">
+        #{pstDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="pstStardate != null">
+        #{pstStardate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pstType != null">
+        #{pstType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dingyun.model.ProjectstypeExample" resultType="java.lang.Long">
+    select count(*) from projectstype
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update projectstype
+    <set>
+      <if test="record.pstId != null">
+        pst_id = #{record.pstId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pstName != null">
+        pst_name = #{record.pstName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pstDesc != null">
+        pst_desc = #{record.pstDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pstStardate != null">
+        pst_stardate = #{record.pstStardate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.pstType != null">
+        pst_type = #{record.pstType,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update projectstype
+    set pst_id = #{record.pstId,jdbcType=INTEGER},
+      pst_name = #{record.pstName,jdbcType=VARCHAR},
+      pst_desc = #{record.pstDesc,jdbcType=VARCHAR},
+      pst_stardate = #{record.pstStardate,jdbcType=TIMESTAMP},
+      pst_type = #{record.pstType,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dingyun.model.Projectstype">
+    update projectstype
+    <set>
+      <if test="pstName != null">
+        pst_name = #{pstName,jdbcType=VARCHAR},
+      </if>
+      <if test="pstDesc != null">
+        pst_desc = #{pstDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="pstStardate != null">
+        pst_stardate = #{pstStardate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pstType != null">
+        pst_type = #{pstType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where pst_id = #{pstId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dingyun.model.Projectstype">
+    update projectstype
+    set pst_name = #{pstName,jdbcType=VARCHAR},
+      pst_desc = #{pstDesc,jdbcType=VARCHAR},
+      pst_stardate = #{pstStardate,jdbcType=TIMESTAMP},
+      pst_type = #{pstType,jdbcType=INTEGER}
+    where pst_id = #{pstId,jdbcType=INTEGER}
+  </update>
+</mapper>

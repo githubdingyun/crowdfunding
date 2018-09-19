@@ -1,0 +1,256 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<base href="/crowdfunding/">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>预览项目页</title>
+
+    <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/select-widget-min.js"></script>
+<link href="css/base.css" rel="stylesheet" type="text/css">
+<link href="css/layout.css" rel="stylesheet" type="text/css">
+   <link rel="stylesheet" href="css/drop-down.css" />
+<link href="css/product-list.css" rel="stylesheet" type="text/css">
+
+</head>
+<script>
+    $(function(){
+
+        var tophtml="" +
+                "<div id=\"izl_rmenu\" class=\"izl-rmenu\">" +
+                "<div class=\"btn btn-wx\">" +
+                "<img class=\"pic\" src=\"images/weixin.jpg\" onclick=\"window.location.href=\'http://www.baidu.com\'\"/></div>" +
+                "<a href=\"\" class=\"btn btn-qq\"></a>" +
+                "<div class=\"btn btn-top\"></div>" +
+                "</div>";
+        $("#top").html(tophtml);
+        $("#izl_rmenu").each(function(){
+            $(this).find(".btn-wx").mouseenter(function(){
+                $(this).find(".pic").fadeIn("fast");
+            });
+            $(this).find(".btn-wx").mouseleave(function(){
+                $(this).find(".pic").fadeOut("fast");
+            });
+            $(this).find(".btn-phone").mouseenter(function(){
+                $(this).find(".phone").fadeIn("fast");
+            });
+            $(this).find(".btn-phone").mouseleave(function(){
+                $(this).find(".phone").fadeOut("fast");
+            });
+            $(this).find(".btn-top").click(function(){
+                $("html, body").animate({
+                    "scroll-top":0
+                },"fast");
+            });
+        });
+        var lastRmenuStatus=false;
+        $(window).scroll(function(){//bug
+            var _top=$(window).scrollTop();
+            if(_top>200){
+                $("#izl_rmenu").data("expanded",true);
+            }else{
+                $("#izl_rmenu").data("expanded",false);
+            }
+            if($("#izl_rmenu").data("expanded")!=lastRmenuStatus){
+                lastRmenuStatus=$("#izl_rmenu").data("expanded");
+                if(lastRmenuStatus){
+                    $("#izl_rmenu .btn-top").slideDown();
+                }else{
+                    $("#izl_rmenu .btn-top").slideUp();
+                }
+            }
+        });
+    });
+</script>
+<body>
+<div id="header">
+   <div class="head">
+      <div class="logo"><a href="#"><img src="images/pre_03.jpg" alt="logo"/></a></div>
+      <div class="nav">
+        <ul>
+           <li class="nav_list"><a href="#"><img src="images/pre_06.jpg" width="45" height="44" /><p>首页</p></a></li>
+           <li class="nav_list"><a href="#"><img src="images/pre_08.jpg" /><p>预览项目</p></a></li>
+           <li class="nav_list"><a href="#"><img src="images/pre_10.jpg" /><p>资讯</p></a></li>
+           <li class="nav_list"><a href="#"><img src="images/pre_12.jpg" /><p>了解我们</p></a></li>
+        </ul>
+       </div>
+
+      <!-- nav end -->
+      <!-- 登录&&注册 begin -->
+       <div class="loginbox">
+         <ul>
+           <li><em></em></li>
+           <li><a href="#">登录</a></li>
+           <li><span>|</span></li>
+           <li><a href="#">注册</a></li>
+         </ul>
+      </div>
+      <!-- 登录&&注册 end -->
+   </div>
+</div>
+<!-- mian -->
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".ui-select").selectWidget({
+            change       : function (changes) {
+                return changes;
+            },
+            effect       : "slide",
+            keyControl   : true,
+            speed        : 200,
+            scrollHeight : 250
+        });
+
+    });
+</script>
+<div class="mian">
+    <!-- select begin-->
+  <div class="product-con_nav">
+        <a class="lnav_bg" href=""><i><img src="images/ii_04.png" alt=""/></i>　全部</a>
+        <a href=""><i><img src="images/ii_06.png" alt=""/></i>　科技</a>
+        <a href=""><i><img src="images/ii_08.png" alt=""/></i>　农业</a>
+        <a href=""><i><img src="images/ii_10.png" alt=""/></i>　动漫</a>
+        <a href=""><i><img src="images/ii_12.png" alt=""/></i>　设计</a>
+        <a href=""><i><img src="images/ii_14.png" alt=""/></i>　公益</a>
+        <a href=""><i><img src="images/ii_16.png" alt=""/></i>　娱乐</a>
+        <a href=""><i><img src="images/ii_18.png" alt=""/></i>　音乐</a>
+        <a href=""><i><img src="images/ii_20.png" alt=""/></i>　书籍</a>
+           <div class="select-li">
+               <span>状态:</span>
+               <select name="drop2" class="ui-select">
+               <option value="">全部</option>
+               <option value="1">全部2</option>
+               <option value="2">全部4</option>
+               <option value="3">全部5</option>
+           </select>
+           </div>
+        <div class="select-li2">
+               <span>排序:</span>
+               <select name="drop2" class="ui-select">
+               <option value="">全部</option>
+               <option value="1">全部2</option>
+               <option value="2">全部4</option>
+               <option value="3">全部5</option>
+           </select>
+           </div>
+
+    </div>
+    <!-- select end -->
+    <div class="part1">
+       <div class="ac1_l">
+           <div class="ac1_l-div">融资成功</div>
+           <a href="#"><img src="images/pre_24.jpg" width="660" height="282" alt=""/></a></div>
+       <div class="ac1_r">
+          <div class="ac_hot_i"><img src="images/pre_hot.png" width="97" height="97" alt="hot"/></div>
+         <h3>Dr.drinks叮咚茶饮机</h3>
+          <div class="ac1_p">Dr.drinks叮咚茶饮机搭配饮品星球使用，便捷的一键式操作，60秒就能制作出一杯健康美味的茶饮。</div>
+          <div class="ac1_r_b clear:after">
+             <div class="ac_hot"><img src="images/pre_27.jpg" alt="hot" /></div>
+             <div class="ac_hot_p">融资目标：<span>￥400.00万</span><br/>已 筹 集：<span>￥443.00万</span><br/>剩余时间：<span>已经结束</span></div>
+          </div>
+       </div>
+    </div>
+    <div class="part1">
+       <div class="ac1_l">
+           <div class="ac1_l-div">融资成功</div>
+           <a href="#"><img src="images/pre_24.jpg" width="660" height="282" alt=""/></a></div>
+       <div class="ac1_r">
+          <div class="ac_hot_i"><img src="images/pre_hot.png" width="97" height="97" alt="hot"/></div>
+         <h3>猫酷商场</h3>
+          <div class="ac1_p">猫酷为商场提供室内定位、O2O应用、电商、数据采集等服务，帮助商场高效搭建运营O2O交互平台，营造逛街酷体验。</div>
+          <div class="ac1_r_b clear:after">
+             <div class="ac_hot"><img src="images/pre_27.jpg" alt="hot" /></div>
+             <div class="ac_hot_p">融资目标：<span>￥3600.00万</span><br/>已 筹 集：<span>￥3617.00万</span><br/>剩余时间：<span>已经结束</span></div>
+          </div>
+       </div>
+    </div>
+    <div class="part1">
+       <div class="ac1_l">
+           <div class="ac1_l-div">融资成功</div>
+           <a href="#"><img src="images/pre_24.jpg" width="660" height="282" alt=""/></a></div>
+       <div class="ac1_r">
+          <div class="ac_hot_i"><img src="images/pre_hot.png" width="97" height="97" alt="hot"/></div>
+         <h3>Dr.drinks叮咚茶饮机</h3>
+          <div class="ac1_p">Dr.drinks叮咚茶饮机搭配饮品星球使用，便捷的一键式操作，60秒就能制作出一杯健康美味的茶饮。</div>
+          <div class="ac1_r_b clear:after">
+             <div class="ac_hot"><img src="images/pre_27.jpg" alt="hot" /></div>
+             <div class="ac_hot_p">融资目标：<span>￥400.00万</span><br/>已 筹 集：<span>￥443.00万</span><br/>剩余时间：<span>已经结束</span></div>
+          </div>
+       </div>
+    </div>
+    <div class="part1">
+       <div class="ac1_l">
+           <div class="ac1_l-div">融资成功</div>
+           <a href="#"><img src="images/pre_24.jpg" width="660" height="282" alt=""/></a></div>
+       <div class="ac1_r">
+          <div class="ac_hot_i"><img src="images/pre_hot.png" width="97" height="97" alt="hot"/></div>
+         <h3>猫酷商场</h3>
+          <div class="ac1_p">猫酷为商场提供室内定位、O2O应用、电商、数据采集等服务，帮助商场高效搭建运营O2O交互平台，营造逛街酷体验。</div>
+          <div class="ac1_r_b clear:after">
+             <div class="ac_hot"><img src="images/pre_27.jpg"  alt="hot" /></div>
+             <div class="ac_hot_p">融资目标：<span>￥400.00万</span><br/>已 筹 集：<span>￥443.00万</span><br/>剩余时间：<span>已经结束</span></div>
+          </div>
+       </div>
+    </div>
+    <div class="part1">
+       <div class="ac1_l">
+           <div class="ac1_l-div">融资成功</div>
+           <a href="#"><img src="images/pre_24.jpg"  width="660" height="282" alt=""/></a></div>
+       <div class="ac1_r">
+          <div class="ac_hot_i"><img src="images/pre_hot.png" width="97" height="97" alt="hot"/></div>
+         <h3>Dr.drinks叮咚茶饮机</h3>
+          <div class="ac1_p">Dr.drinks叮咚茶饮机搭配饮品星球使用，便捷的一键式操作，60秒就能制作出一杯健康美味的茶饮。</div>
+          <div class="ac1_r_b clear:after">
+             <div class="ac_hot"><img src="images/pre_27.jpg" alt="hot" /></div>
+             <div class="ac_hot_p">融资目标：<span>￥400.00万</span><br/>已 筹 集：<span>￥443.00万</span><br/>剩余时间：<span>已经结束</span></div>
+          </div>
+       </div>
+    </div>
+    <div class="part1">
+       <div class="ac1_l">
+           <div class="ac1_l-div">融资成功</div>
+           <a href="#"><img src="images/pre_24.jpg" width="660" height="282"  alt=""/></a></div>
+       <div class="ac1_r">
+          <div class="ac_hot_i"><img src="images/pre_hot.png" width="97" height="97" alt="hot"/></div>
+         <h3>猫酷商场</h3>
+          <div class="ac1_p">猫酷为商场提供室内定位、O2O应用、电商、数据采集等服务，帮助商场高效搭建运营O2O交互平台，营造逛街酷体验。</div>
+          <div class="ac1_r_b clear:after">
+             <div class="ac_hot"><img src="images/pre_27.jpg" alt="hot" /></div>
+             <div class="ac_hot_p">融资目标：<span>￥400.00万</span><br/>已 筹 集：<span>￥443.00万</span><br/>剩余时间：<span>已经结束</span></div>
+          </div>
+       </div>
+    </div>
+</div>
+<!-- mian end -->
+<div id="bottom">
+  <div class="bottom_p">
+   <div class="copy">
+      <a href="#" class="">关于51众筹</a>
+      <b>|</b>
+      <a href="#">联系我们</a>
+      <b>|</b>
+      <a href="#">免责声明</a>
+      <br/>
+      <br/>
+      <span>Copyright © 2004-2015 51众筹ZC.com 版权所有</span>
+      <b>|</b>
+      <span>投资有风险，购买需谨慎</span>
+   </div>
+   <div class="contact">
+      <div class="contact_p">
+         <p>联系我们<span>（9:00-22:00）</span></p>
+         <span>400 098 8511(个人业务)</span>
+         <span>400 098 8511(个人业务)</span>
+      </div>
+      <div class="contact_wx">
+         <a href="#"><img src="images/pre_36.jpg" alt="关注微信"/></a>
+         <img src="images/pre_39.jpg" />
+         <span>51众筹大趴</span>
+      </div>
+   </div>
+  </div>
+</div>
+<div id="top"></div>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dingyun.dao.CommentsDAO">
+  <resultMap id="BaseResultMap" type="com.dingyun.model.Comments">
+    <id column="cm_id" jdbcType="INTEGER" property="cmId" />
+    <result column="cm_us_id" jdbcType="INTEGER" property="cmUsId" />
+    <result column="cm_ps_id" jdbcType="INTEGER" property="cmPsId" />
+    <result column="cm_content" jdbcType="VARCHAR" property="cmContent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cm_id, cm_us_id, cm_ps_id, cm_content
+  </sql>
+  <select id="selectByExample" parameterType="com.dingyun.model.CommentsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from comments
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from comments
+    where cm_id = #{cmId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from comments
+    where cm_id = #{cmId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dingyun.model.CommentsExample">
+    delete from comments
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dingyun.model.Comments">
+    insert into comments (cm_id, cm_us_id, cm_ps_id, 
+      cm_content)
+    values (#{cmId,jdbcType=INTEGER}, #{cmUsId,jdbcType=INTEGER}, #{cmPsId,jdbcType=INTEGER}, 
+      #{cmContent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dingyun.model.Comments">
+    insert into comments
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cmId != null">
+        cm_id,
+      </if>
+      <if test="cmUsId != null">
+        cm_us_id,
+      </if>
+      <if test="cmPsId != null">
+        cm_ps_id,
+      </if>
+      <if test="cmContent != null">
+        cm_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cmId != null">
+        #{cmId,jdbcType=INTEGER},
+      </if>
+      <if test="cmUsId != null">
+        #{cmUsId,jdbcType=INTEGER},
+      </if>
+      <if test="cmPsId != null">
+        #{cmPsId,jdbcType=INTEGER},
+      </if>
+      <if test="cmContent != null">
+        #{cmContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dingyun.model.CommentsExample" resultType="java.lang.Long">
+    select count(*) from comments
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update comments
+    <set>
+      <if test="record.cmId != null">
+        cm_id = #{record.cmId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cmUsId != null">
+        cm_us_id = #{record.cmUsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cmPsId != null">
+        cm_ps_id = #{record.cmPsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cmContent != null">
+        cm_content = #{record.cmContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update comments
+    set cm_id = #{record.cmId,jdbcType=INTEGER},
+      cm_us_id = #{record.cmUsId,jdbcType=INTEGER},
+      cm_ps_id = #{record.cmPsId,jdbcType=INTEGER},
+      cm_content = #{record.cmContent,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dingyun.model.Comments">
+    update comments
+    <set>
+      <if test="cmUsId != null">
+        cm_us_id = #{cmUsId,jdbcType=INTEGER},
+      </if>
+      <if test="cmPsId != null">
+        cm_ps_id = #{cmPsId,jdbcType=INTEGER},
+      </if>
+      <if test="cmContent != null">
+        cm_content = #{cmContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cm_id = #{cmId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dingyun.model.Comments">
+    update comments
+    set cm_us_id = #{cmUsId,jdbcType=INTEGER},
+      cm_ps_id = #{cmPsId,jdbcType=INTEGER},
+      cm_content = #{cmContent,jdbcType=VARCHAR}
+    where cm_id = #{cmId,jdbcType=INTEGER}
+  </update>
+</mapper>

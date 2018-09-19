@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dingyun.dao.ProADAO">
+  <resultMap id="BaseResultMap" type="com.dingyun.model.ProA">
+    <id column="pro_a_id" jdbcType="INTEGER" property="proAId" />
+    <result column="pr_a_us_id" jdbcType="INTEGER" property="prAUsId" />
+    <result column="pro_a_cust_name" jdbcType="VARCHAR" property="proACustName" />
+    <result column="pro_a_cust_phone" jdbcType="VARCHAR" property="proACustPhone" />
+    <result column="pro_a_pst_id" jdbcType="INTEGER" property="proAPstId" />
+    <result column="pro_a_cust_address" jdbcType="VARCHAR" property="proACustAddress" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    pro_a_id, pr_a_us_id, pro_a_cust_name, pro_a_cust_phone, pro_a_pst_id, pro_a_cust_address
+  </sql>
+  <select id="selectByExample" parameterType="com.dingyun.model.ProAExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pro_a
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pro_a
+    where pro_a_id = #{proAId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pro_a
+    where pro_a_id = #{proAId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dingyun.model.ProAExample">
+    delete from pro_a
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dingyun.model.ProA">
+    insert into pro_a (pro_a_id, pr_a_us_id, pro_a_cust_name, 
+      pro_a_cust_phone, pro_a_pst_id, pro_a_cust_address
+      )
+    values (#{proAId,jdbcType=INTEGER}, #{prAUsId,jdbcType=INTEGER}, #{proACustName,jdbcType=VARCHAR}, 
+      #{proACustPhone,jdbcType=VARCHAR}, #{proAPstId,jdbcType=INTEGER}, #{proACustAddress,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dingyun.model.ProA">
+    insert into pro_a
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="proAId != null">
+        pro_a_id,
+      </if>
+      <if test="prAUsId != null">
+        pr_a_us_id,
+      </if>
+      <if test="proACustName != null">
+        pro_a_cust_name,
+      </if>
+      <if test="proACustPhone != null">
+        pro_a_cust_phone,
+      </if>
+      <if test="proAPstId != null">
+        pro_a_pst_id,
+      </if>
+      <if test="proACustAddress != null">
+        pro_a_cust_address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="proAId != null">
+        #{proAId,jdbcType=INTEGER},
+      </if>
+      <if test="prAUsId != null">
+        #{prAUsId,jdbcType=INTEGER},
+      </if>
+      <if test="proACustName != null">
+        #{proACustName,jdbcType=VARCHAR},
+      </if>
+      <if test="proACustPhone != null">
+        #{proACustPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="proAPstId != null">
+        #{proAPstId,jdbcType=INTEGER},
+      </if>
+      <if test="proACustAddress != null">
+        #{proACustAddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dingyun.model.ProAExample" resultType="java.lang.Long">
+    select count(*) from pro_a
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update pro_a
+    <set>
+      <if test="record.proAId != null">
+        pro_a_id = #{record.proAId,jdbcType=INTEGER},
+      </if>
+      <if test="record.prAUsId != null">
+        pr_a_us_id = #{record.prAUsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.proACustName != null">
+        pro_a_cust_name = #{record.proACustName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proACustPhone != null">
+        pro_a_cust_phone = #{record.proACustPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proAPstId != null">
+        pro_a_pst_id = #{record.proAPstId,jdbcType=INTEGER},
+      </if>
+      <if test="record.proACustAddress != null">
+        pro_a_cust_address = #{record.proACustAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update pro_a
+    set pro_a_id = #{record.proAId,jdbcType=INTEGER},
+      pr_a_us_id = #{record.prAUsId,jdbcType=INTEGER},
+      pro_a_cust_name = #{record.proACustName,jdbcType=VARCHAR},
+      pro_a_cust_phone = #{record.proACustPhone,jdbcType=VARCHAR},
+      pro_a_pst_id = #{record.proAPstId,jdbcType=INTEGER},
+      pro_a_cust_address = #{record.proACustAddress,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dingyun.model.ProA">
+    update pro_a
+    <set>
+      <if test="prAUsId != null">
+        pr_a_us_id = #{prAUsId,jdbcType=INTEGER},
+      </if>
+      <if test="proACustName != null">
+        pro_a_cust_name = #{proACustName,jdbcType=VARCHAR},
+      </if>
+      <if test="proACustPhone != null">
+        pro_a_cust_phone = #{proACustPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="proAPstId != null">
+        pro_a_pst_id = #{proAPstId,jdbcType=INTEGER},
+      </if>
+      <if test="proACustAddress != null">
+        pro_a_cust_address = #{proACustAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pro_a_id = #{proAId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dingyun.model.ProA">
+    update pro_a
+    set pr_a_us_id = #{prAUsId,jdbcType=INTEGER},
+      pro_a_cust_name = #{proACustName,jdbcType=VARCHAR},
+      pro_a_cust_phone = #{proACustPhone,jdbcType=VARCHAR},
+      pro_a_pst_id = #{proAPstId,jdbcType=INTEGER},
+      pro_a_cust_address = #{proACustAddress,jdbcType=VARCHAR}
+    where pro_a_id = #{proAId,jdbcType=INTEGER}
+  </update>
+</mapper>

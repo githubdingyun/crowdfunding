@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dingyun.dao.UserDAO">
+  <resultMap id="BaseResultMap" type="com.dingyun.model.User">
+    <result column="us_id" jdbcType="INTEGER" property="usId" />
+    <result column="us_email" jdbcType="VARCHAR" property="usEmail" />
+    <result column="us_name" jdbcType="VARCHAR" property="usName" />
+    <result column="us_password" jdbcType="VARCHAR" property="usPassword" />
+    <result column="us_money" jdbcType="DOUBLE" property="usMoney" />
+    <result column="us_idcard" jdbcType="VARCHAR" property="usIdcard" />
+    <result column="us_phone" jdbcType="VARCHAR" property="usPhone" />
+    <result column="us_address" jdbcType="VARCHAR" property="usAddress" />
+    <result column="us_role" jdbcType="INTEGER" property="usRole" />
+    <result column="us_sex" jdbcType="VARCHAR" property="usSex" />
+    <result column="us_code" jdbcType="VARCHAR" property="usCode" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    us_id, us_email, us_name, us_password, us_money, us_idcard, us_phone, us_address, 
+    us_role, us_sex, us_code
+  </sql>
+  <select id="selectByExample" parameterType="com.dingyun.model.UserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.dingyun.model.UserExample">
+    delete from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dingyun.model.User">
+    insert into user (us_id, us_email, us_name, 
+      us_password, us_money, us_idcard, 
+      us_phone, us_address, us_role, 
+      us_sex, us_code)
+    values (#{usId,jdbcType=INTEGER}, #{usEmail,jdbcType=VARCHAR}, #{usName,jdbcType=VARCHAR}, 
+      #{usPassword,jdbcType=VARCHAR}, #{usMoney,jdbcType=DOUBLE}, #{usIdcard,jdbcType=VARCHAR}, 
+      #{usPhone,jdbcType=VARCHAR}, #{usAddress,jdbcType=VARCHAR}, #{usRole,jdbcType=INTEGER}, 
+      #{usSex,jdbcType=VARCHAR}, #{usCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dingyun.model.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="usId != null">
+        us_id,
+      </if>
+      <if test="usEmail != null">
+        us_email,
+      </if>
+      <if test="usName != null">
+        us_name,
+      </if>
+      <if test="usPassword != null">
+        us_password,
+      </if>
+      <if test="usMoney != null">
+        us_money,
+      </if>
+      <if test="usIdcard != null">
+        us_idcard,
+      </if>
+      <if test="usPhone != null">
+        us_phone,
+      </if>
+      <if test="usAddress != null">
+        us_address,
+      </if>
+      <if test="usRole != null">
+        us_role,
+      </if>
+      <if test="usSex != null">
+        us_sex,
+      </if>
+      <if test="usCode != null">
+        us_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="usId != null">
+        #{usId,jdbcType=INTEGER},
+      </if>
+      <if test="usEmail != null">
+        #{usEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="usName != null">
+        #{usName,jdbcType=VARCHAR},
+      </if>
+      <if test="usPassword != null">
+        #{usPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="usMoney != null">
+        #{usMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="usIdcard != null">
+        #{usIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="usPhone != null">
+        #{usPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="usAddress != null">
+        #{usAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="usRole != null">
+        #{usRole,jdbcType=INTEGER},
+      </if>
+      <if test="usSex != null">
+        #{usSex,jdbcType=VARCHAR},
+      </if>
+      <if test="usCode != null">
+        #{usCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dingyun.model.UserExample" resultType="java.lang.Long">
+    select count(*) from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user
+    <set>
+      <if test="record.usId != null">
+        us_id = #{record.usId,jdbcType=INTEGER},
+      </if>
+      <if test="record.usEmail != null">
+        us_email = #{record.usEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usName != null">
+        us_name = #{record.usName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usPassword != null">
+        us_password = #{record.usPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usMoney != null">
+        us_money = #{record.usMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.usIdcard != null">
+        us_idcard = #{record.usIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usPhone != null">
+        us_phone = #{record.usPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usAddress != null">
+        us_address = #{record.usAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usRole != null">
+        us_role = #{record.usRole,jdbcType=INTEGER},
+      </if>
+      <if test="record.usSex != null">
+        us_sex = #{record.usSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usCode != null">
+        us_code = #{record.usCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user
+    set us_id = #{record.usId,jdbcType=INTEGER},
+      us_email = #{record.usEmail,jdbcType=VARCHAR},
+      us_name = #{record.usName,jdbcType=VARCHAR},
+      us_password = #{record.usPassword,jdbcType=VARCHAR},
+      us_money = #{record.usMoney,jdbcType=DOUBLE},
+      us_idcard = #{record.usIdcard,jdbcType=VARCHAR},
+      us_phone = #{record.usPhone,jdbcType=VARCHAR},
+      us_address = #{record.usAddress,jdbcType=VARCHAR},
+      us_role = #{record.usRole,jdbcType=INTEGER},
+      us_sex = #{record.usSex,jdbcType=VARCHAR},
+      us_code = #{record.usCode,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

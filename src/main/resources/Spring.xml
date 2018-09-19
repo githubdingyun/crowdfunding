@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <context:component-scan base-package="com.dingyun"/>
+    <aop:aspectj-autoproxy/>
+
+    <!--1.导入数据源的账号密码的配置-->
+    <util:properties id="db" location="classpath:db.properties"/>
+
+    <!--2.配置sql工厂中很重要的一个工厂  叫做数据源-->
+    <!--之一我们这里使用的jdbc数据源不是spring提供的，当然我们可以使用spring提供的，这是apache提供的-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" >
+        <property name="driverClassName" value="#{db.driver}"/>
+        <property name="url" value="#{db.url}"/>
+        <property name="username" value="#{db.username}"/>
+        <property name="password" value="#{db.password}"/>
+    </bean>
+
+    <!--3.配置sql工厂  里面有很重要的三个参数   -->
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="typeAliasesPackage" value="com.dingyun.dao"/>
+        <property name="configLocation" value="classpath:MyBatias.xml"/>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+    </bean>
+
+    <!--4.配置mapper的xml的对应接口，让其能够动态代理~-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactory" ref="sqlSession"/>
+        <property name="basePackage" value="com.dingyun.dao"/>
+        <!--<property name="annotationClass" value="com.dingyun.dao.MyBatisRepository"/>-->
+    </bean>
+
+
+
+
+
+
+</beans>

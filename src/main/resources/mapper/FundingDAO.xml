@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dingyun.dao.FundingDAO">
+  <resultMap id="BaseResultMap" type="com.dingyun.model.Funding">
+    <id column="fd_id" jdbcType="INTEGER" property="fdId" />
+    <result column="fd_us_id" jdbcType="INTEGER" property="fdUsId" />
+    <result column="fd_ps_id" jdbcType="INTEGER" property="fdPsId" />
+    <result column="fd_money" jdbcType="DOUBLE" property="fdMoney" />
+    <result column="fd_time" jdbcType="TIMESTAMP" property="fdTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    fd_id, fd_us_id, fd_ps_id, fd_money, fd_time
+  </sql>
+  <select id="selectByExample" parameterType="com.dingyun.model.FundingExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from funding
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from funding
+    where fd_id = #{fdId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from funding
+    where fd_id = #{fdId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dingyun.model.FundingExample">
+    delete from funding
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dingyun.model.Funding">
+    insert into funding (fd_id, fd_us_id, fd_ps_id, 
+      fd_money, fd_time)
+    values (#{fdId,jdbcType=INTEGER}, #{fdUsId,jdbcType=INTEGER}, #{fdPsId,jdbcType=INTEGER}, 
+      #{fdMoney,jdbcType=DOUBLE}, #{fdTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dingyun.model.Funding">
+    insert into funding
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fdId != null">
+        fd_id,
+      </if>
+      <if test="fdUsId != null">
+        fd_us_id,
+      </if>
+      <if test="fdPsId != null">
+        fd_ps_id,
+      </if>
+      <if test="fdMoney != null">
+        fd_money,
+      </if>
+      <if test="fdTime != null">
+        fd_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fdId != null">
+        #{fdId,jdbcType=INTEGER},
+      </if>
+      <if test="fdUsId != null">
+        #{fdUsId,jdbcType=INTEGER},
+      </if>
+      <if test="fdPsId != null">
+        #{fdPsId,jdbcType=INTEGER},
+      </if>
+      <if test="fdMoney != null">
+        #{fdMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="fdTime != null">
+        #{fdTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dingyun.model.FundingExample" resultType="java.lang.Long">
+    select count(*) from funding
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update funding
+    <set>
+      <if test="record.fdId != null">
+        fd_id = #{record.fdId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fdUsId != null">
+        fd_us_id = #{record.fdUsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fdPsId != null">
+        fd_ps_id = #{record.fdPsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fdMoney != null">
+        fd_money = #{record.fdMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.fdTime != null">
+        fd_time = #{record.fdTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update funding
+    set fd_id = #{record.fdId,jdbcType=INTEGER},
+      fd_us_id = #{record.fdUsId,jdbcType=INTEGER},
+      fd_ps_id = #{record.fdPsId,jdbcType=INTEGER},
+      fd_money = #{record.fdMoney,jdbcType=DOUBLE},
+      fd_time = #{record.fdTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dingyun.model.Funding">
+    update funding
+    <set>
+      <if test="fdUsId != null">
+        fd_us_id = #{fdUsId,jdbcType=INTEGER},
+      </if>
+      <if test="fdPsId != null">
+        fd_ps_id = #{fdPsId,jdbcType=INTEGER},
+      </if>
+      <if test="fdMoney != null">
+        fd_money = #{fdMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="fdTime != null">
+        fd_time = #{fdTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where fd_id = #{fdId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dingyun.model.Funding">
+    update funding
+    set fd_us_id = #{fdUsId,jdbcType=INTEGER},
+      fd_ps_id = #{fdPsId,jdbcType=INTEGER},
+      fd_money = #{fdMoney,jdbcType=DOUBLE},
+      fd_time = #{fdTime,jdbcType=TIMESTAMP}
+    where fd_id = #{fdId,jdbcType=INTEGER}
+  </update>
+</mapper>
